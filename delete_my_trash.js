@@ -1,6 +1,9 @@
+//
+// update 
+//
 function delete_my_gmail_trash()
 {
-  var threads = GmailApp.search( "in:trash", 501, 500 );
+  var threads = GmailApp.search( "in:trash", 0, 500 );
   Logger.log(threads.length ); 
   return ;
   for ( var i = 0; i < threads.length; i++ ) {
