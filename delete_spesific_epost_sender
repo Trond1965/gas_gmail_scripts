@@ -1,0 +1,38 @@
+//
+// delete email from spesific sender.
+//
+function delete_spesific_epost_sender() {
+  
+  var i       = 0;
+  var current = 0;
+  var junk    = 0;
+  var sender;
+  
+  
+  // Loop through the inbox 
+  var tl = GmailApp.getInboxThreads(current,500).length;
+  if ( tl < 1.0 ) return;
+  
+  var finished = 0;
+  while ( finished != 1 ) {   
+   
+    
+    while (tl > 0) {
+      if ( GmailApp.getInboxThreads(i,1)[0].getMessages()[0].getFrom() == "Facebook <notification@facebookmail.com>" )
+      {
+        Gmail.Users.Messages.batchDelete( {  "ids": [ GmailApp.getInboxThreads(i,1)[0].getMessages()[0].getId() ]}, "me" );
+        junk++;
+      }
+      i++;
+      tl = tl - 1;
+    }
+    
+    // Showe number of junk
+    // Logger.log(junk); 
+    tl = GmailApp.getInboxThreads(i,500).length;
+    if ( tl < 1 ) {    finished = 1; }
+  }  
+  // Showe number of junk and number of messages inspected
+  Logger.log("Number of  junk removed >" + junk + "Total of messages inspected ->" + i ); 
+
+}
